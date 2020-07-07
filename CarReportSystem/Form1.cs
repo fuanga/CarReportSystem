@@ -12,14 +12,17 @@ namespace CarReportSystem
 {
     public partial class Form1 : Form
     {
+        BindingList<CarReport> carReports = new BindingList<CarReport>();
         public Form1()
         {
             InitializeComponent();
+            dgvcardate.DataSource = carReports;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+      
+        private void btAdd_Click(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

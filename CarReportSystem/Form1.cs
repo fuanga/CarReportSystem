@@ -15,11 +15,19 @@ namespace CarReportSystem
 {
     public partial class Form1 : Form
     {
+        
         BindingList<CarReport> carReports = new BindingList<CarReport>();
         public Form1()
         {
             InitializeComponent();
-            dgvcardate.DataSource = carReports;
+           // dgvcardate.DataSource = carReports;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: このコード行はデータを 'infosys202029DataSet.CarReport' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
+            this.carReportTableAdapter.Fill(this.infosys202029DataSet.CarReport);
+            dgvcardate.Columns[0].Visible = false; //idを非表示にする
         }
 
 
@@ -38,7 +46,7 @@ namespace CarReportSystem
             };
 
             carReports.Insert(0, carreport);
-
+            
 
         }
 
@@ -75,14 +83,15 @@ namespace CarReportSystem
 
         private void btFix_Click(object sender, EventArgs e)
         {
-            CarReport selectCarReport = carReports[dgvcardate.CurrentRow.Index];
+           
+          // CarReport selectCarReport = carReports[dgvcardate.CurrentRow.Index];
 
-            selectCarReport.CreatedDate = dtpCreate.Value;
-            selectCarReport.Author = cbRecorder.Text;
-            selectCarReport.Maker = RadioCheck();
-            selectCarReport.Name = cbName.Text;
-            selectCarReport.Report = tbReport.Text;
-            selectCarReport.Picture = pbImage.Image;
+            //selectCarReport.CreatedDate = dtpCreate.Value;
+            //selectCarReport.Author = cbRecorder.Text;
+            //selectCarReport.Maker = RadioCheck();
+            //selectCarReport.Name = cbName.Text;
+            //selectCarReport.Report = tbReport.Text;
+            //selectCarReport.Picture = pbImage.Image;
 
             dgvcardate.Refresh();
         }
@@ -177,15 +186,40 @@ namespace CarReportSystem
 
         private void dgvcardate_Click(object sender, EventArgs e)
         {
-            if (dgvcardate.CurrentRow == null)
-                return;
-            CarReport selectCarReport = carReports[dgvcardate.CurrentRow.Index];
+            //  CarReport selectCarReport = carReports[dgvcardate.CurrentRow.Index];
+            //dtpCreate.Value = selectCarReport.CreatedDate;
+            // cbRecorder.Text = selectCarReport.Author;
+            // cbName.Text = selectCarReport.Name;
+            // tbReport.Text = selectCarReport.Report;
+            // pbImage.Image = selectCarReport.Picture;
 
-            dtpCreate.Value = selectCarReport.CreatedDate;
-            cbRecorder.Text = selectCarReport.Author;
-            cbName.Text = selectCarReport.Name;
-            tbReport.Text = selectCarReport.Report;
-            pbImage.Image = selectCarReport.Picture;
+            var test = dgvcardate.CurrentRow.Cells[2].Value;
+            
+            switch (test)
+            {
+                default:
+                    break;
+            }
+
+        }
+
+
+        private void carReportBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.carReportBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.infosys202029DataSet);
+
+        }
+
+        private void dgvcardate_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+           /* string maker = 
+            switch ()
+            {
+                default:
+                    break;
+            }*/
         }
     }
 }

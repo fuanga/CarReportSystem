@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.dtpCreate = new System.Windows.Forms.DateTimePicker();
+            this.carReportBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.infosys202029DataSet = new CarReportSystem.infosys202029DataSet();
             this.label2 = new System.Windows.Forms.Label();
             this.cbRecorder = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -62,8 +64,6 @@
             this.ofdOpenDate = new System.Windows.Forms.OpenFileDialog();
             this.carReportBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-            this.carReportBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.infosys202029DataSet = new CarReportSystem.infosys202029DataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -85,12 +85,13 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.label8 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.carReportBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.infosys202029DataSet)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.carReportBindingNavigator)).BeginInit();
             this.carReportBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.carReportBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.infosys202029DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvcardate)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,6 +111,16 @@
             this.dtpCreate.Name = "dtpCreate";
             this.dtpCreate.Size = new System.Drawing.Size(200, 19);
             this.dtpCreate.TabIndex = 1;
+            // 
+            // carReportBindingSource
+            // 
+            this.carReportBindingSource.DataMember = "CarReport";
+            this.carReportBindingSource.DataSource = this.infosys202029DataSet;
+            // 
+            // infosys202029DataSet
+            // 
+            this.infosys202029DataSet.DataSetName = "infosys202029DataSet";
+            this.infosys202029DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // label2
             // 
@@ -409,16 +420,6 @@
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "新規追加";
             // 
-            // carReportBindingSource
-            // 
-            this.carReportBindingSource.DataMember = "CarReport";
-            this.carReportBindingSource.DataSource = this.infosys202029DataSet;
-            // 
-            // infosys202029DataSet
-            // 
-            this.infosys202029DataSet.DataSetName = "infosys202029DataSet";
-            this.infosys202029DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
@@ -535,7 +536,7 @@
             this.dgvcardate.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvcardate.Size = new System.Drawing.Size(737, 220);
             this.dgvcardate.TabIndex = 22;
-            this.dgvcardate.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvcardate_CellContentClick);
+            this.dgvcardate.Click += new System.EventHandler(this.dgvcardate_Click_1);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -579,11 +580,21 @@
             this.dataGridViewImageColumn1.HeaderText = "Picture";
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(106, 566);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 12);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "label8";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 599);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.dgvcardate);
             this.Controls.Add(this.carReportBindingNavigator);
             this.Controls.Add(this.btEnd);
@@ -610,14 +621,14 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.carReportBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.infosys202029DataSet)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.carReportBindingNavigator)).EndInit();
             this.carReportBindingNavigator.ResumeLayout(false);
             this.carReportBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.carReportBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.infosys202029DataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvcardate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -681,6 +692,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridView dgvcardate;
+        private System.Windows.Forms.Label label8;
     }
 }
 

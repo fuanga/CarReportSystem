@@ -26,8 +26,8 @@ namespace CarReportSystem
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: このコード行はデータを 'infosys202029DataSet.CarReport' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
-            this.carReportTableAdapter.Fill(this.infosys202029DataSet.CarReport);
-            dgvcardate.Columns[0].Visible = false; //idを非表示にする
+            //this.carReportTableAdapter.Fill(this.infosys202029DataSet.CarReport);
+            //dgvcardate.Columns[0].Visible = false; //idを非表示にする
         }
 
 
@@ -35,7 +35,8 @@ namespace CarReportSystem
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            var carreport = new CarReport
+            #region
+            /*var carreport = new CarReport
             {
                 CreatedDate = dtpCreate.Value,
                 Author = cbRecorder.Text,
@@ -46,7 +47,8 @@ namespace CarReportSystem
             };
 
             carReports.Insert(0, carreport);
-            
+            */
+            #endregion
 
         }
 
@@ -83,8 +85,15 @@ namespace CarReportSystem
 
         private void btFix_Click(object sender, EventArgs e)
         {
-           
-          // CarReport selectCarReport = carReports[dgvcardate.CurrentRow.Index];
+            dgvcardate.CurrentRow.Cells[2].Value = cbRecorder.Text;
+
+            //データベースに反映
+            this.Validate();
+            this.carReportBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.infosys202029DataSet);
+
+
+            // CarReport selectCarReport = carReports[dgvcardate.CurrentRow.Index];
 
             //selectCarReport.CreatedDate = dtpCreate.Value;
             //selectCarReport.Author = cbRecorder.Text;
@@ -137,12 +146,15 @@ namespace CarReportSystem
 
         private void btOpen_Click(object sender, EventArgs e)
         {
+            // TODO: このコード行はデータを 'infosys202029DataSet.CarReport' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
+            this.carReportTableAdapter.Fill(this.infosys202029DataSet.CarReport);
+            dgvcardate.Columns[0].Visible = false; //idを非表示にする
+            #region
+            /*
             if (ofdOpenDate.ShowDialog() == DialogResult.OK)
             {
                 using (FileStream fs = new FileStream(ofdOpenDate.FileName, FileMode.Open))
                 {
-
-
                     try
                     {
                         BinaryFormatter formatter = new BinaryFormatter();
@@ -152,8 +164,7 @@ namespace CarReportSystem
 
                         dgvcardate.DataSource = carReports;
 
-                        dgvcardate_Click(sender, e);
-
+                        dgvcardate_Click(sender, e);       
                     }
                     catch (SerializationException se)
                     {
@@ -162,7 +173,11 @@ namespace CarReportSystem
                     }
 
                 }
-            }
+                
+            }*/
+            #endregion
+
+           
         }
 
 
@@ -179,29 +194,47 @@ namespace CarReportSystem
             Application.Exit();
         }
 
-        private void selectRadiobutton()
+        private void setMakerRadioButtonSet(string maker)
         {
-
-        }
-
-        private void dgvcardate_Click(object sender, EventArgs e)
-        {
-            //  CarReport selectCarReport = carReports[dgvcardate.CurrentRow.Index];
-            //dtpCreate.Value = selectCarReport.CreatedDate;
-            // cbRecorder.Text = selectCarReport.Author;
-            // cbName.Text = selectCarReport.Name;
-            // tbReport.Text = selectCarReport.Report;
-            // pbImage.Image = selectCarReport.Picture;
-
-            var test = dgvcardate.CurrentRow.Cells[2].Value;
-            
-            switch (test)
+            switch (maker)
             {
+                case "トヨタ":
+                    rdbtoyota.Checked = true;
+                    break;
+                case "日産":
+                    rdbniisan.Checked = true;
+                    break;
+                case "ホンダ":
+                    rdbhonda.Checked = true;
+                    break;
+                case "スバル":
+                    rdbsubaru.Checked = true;
+                    break;
+                case "外車":
+                    rdbgaisya.Checked = true;
+                    break;
+                case "その他":
+                    rdboter.Checked = true;
+                    break;
                 default:
                     break;
             }
+        }
+
+
+        private void dgvcardate_Click_1(object sender, EventArgs e)
+        {
+            //var maker = dgvcardate.CurrentRow.Cells[3].Value;
+            string maker = dgvcardate.CurrentRow.Cells[3].Value.ToString();
+
+            setMakerRadioButtonSet(maker) ;
+            //setMakerRadioButtonSet((string)maker);
+
+
+
 
         }
+        
 
 
         private void carReportBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -212,15 +245,25 @@ namespace CarReportSystem
 
         }
 
-        private void dgvcardate_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        // バイト配列をImageオブジェクトに変換 
+        public static Image ByteArrayToImage(byte[] byteData)
         {
-           /* string maker = 
-            switch ()
-            {
-                default:
-                    break;
-            }*/
+            ImageConverter imgconv = new ImageConverter();
+            Image img = (Image)imgconv.ConvertFrom(byteData);
+            return img;
         }
+
+        // Imageオブジェクトをバイト配列に変換
+        public static byte[] ImageToByteArray(Image img)
+        {
+            ImageConverter imgconv = new ImageConverter();
+            byte[] byteData = (byte[])imgconv.ConvertTo(img, typeof(byte[]));
+            return byteData;
+        }
+
+
+
+
     }
 }
 

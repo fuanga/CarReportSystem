@@ -35,6 +35,7 @@ namespace CarReportSystem
 
         private void btAdd_Click(object sender, EventArgs e)
         {
+           
             #region
             /*var carreport = new CarReport
             {
@@ -49,7 +50,10 @@ namespace CarReportSystem
             carReports.Insert(0, carreport);
             */
             #endregion
-
+            dgvcardate.CurrentRow.Cells[6].Value = ImageToByteArray(pbImage.Image);
+            this.Validate();
+            this.carReportBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.infosys202029DataSet);
         }
 
         private CarReport.CarMaker RadioCheck()
@@ -85,7 +89,7 @@ namespace CarReportSystem
 
         private void btFix_Click(object sender, EventArgs e)
         {
-            dgvcardate.CurrentRow.Cells[2].Value = cbRecorder.Text;
+            dgvcardate.CurrentRow.Cells[2].Value = cbAuthor.Text;
 
             //データベースに反映
             this.Validate();
@@ -107,6 +111,7 @@ namespace CarReportSystem
 
         private void btDelete_Click(object sender, EventArgs e)
         {
+            
             carReports.RemoveAt(dgvcardate.CurrentRow.Index);
 
 
@@ -177,6 +182,8 @@ namespace CarReportSystem
             }*/
             #endregion
 
+            
+
            
         }
 
@@ -224,11 +231,22 @@ namespace CarReportSystem
 
         private void dgvcardate_Click_1(object sender, EventArgs e)
         {
-            //var maker = dgvcardate.CurrentRow.Cells[3].Value;
-            string maker = dgvcardate.CurrentRow.Cells[3].Value.ToString();
+            var maker = dgvcardate.CurrentRow.Cells[3].Value;
+            //string maker = dgvcardate.CurrentRow.Cells[3].Value.ToString();
 
-            setMakerRadioButtonSet(maker) ;
-            //setMakerRadioButtonSet((string)maker);
+            dtpCreate.Value = (System.DateTime)dgvcardate.CurrentRow.Cells[1].Value;
+            cbAuthor.Text = dgvcardate.CurrentRow.Cells[2].Value.ToString();
+            cbName.Text = dgvcardate.CurrentRow.Cells[4].Value.ToString();
+            tbReport.Text = dgvcardate.CurrentRow.Cells[5].Value.ToString();
+           
+
+            pbImage.Image = ByteArrayToImage((byte[])dgvcardate.CurrentRow.Cells[6].Value);
+
+            
+
+
+            //setMakerRadioButtonSet(maker) ;
+            setMakerRadioButtonSet((string)maker);
 
 
 

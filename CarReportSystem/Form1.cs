@@ -50,10 +50,7 @@ namespace CarReportSystem
             carReports.Insert(0, carreport);
             */
             #endregion
-            dgvcardate.CurrentRow.Cells[6].Value = ImageToByteArray(pbImage.Image);
-            this.Validate();
-            this.carReportBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.infosys202029DataSet);
+            
         }
 
         private CarReport.CarMaker RadioCheck()
@@ -90,6 +87,18 @@ namespace CarReportSystem
         private void btFix_Click(object sender, EventArgs e)
         {
             dgvcardate.CurrentRow.Cells[2].Value = cbAuthor.Text;
+           
+
+            if(pbImage.Image != null)
+            {
+                dgvcardate.CurrentRow.Cells[6].Value = ImageToByteArray(pbImage.Image);
+            }
+            else
+            {
+                dgvcardate.CurrentRow.Cells[6].Value = null;
+            }
+
+
 
             //データベースに反映
             this.Validate();
@@ -111,9 +120,8 @@ namespace CarReportSystem
 
         private void btDelete_Click(object sender, EventArgs e)
         {
-            
-            carReports.RemoveAt(dgvcardate.CurrentRow.Index);
 
+            //carReports.RemoveAt(dgvcardate.CurrentRow.Index);
 
             dgvcardate.ClearSelection();
         }
@@ -240,9 +248,21 @@ namespace CarReportSystem
             tbReport.Text = dgvcardate.CurrentRow.Cells[5].Value.ToString();
            
 
-            pbImage.Image = ByteArrayToImage((byte[])dgvcardate.CurrentRow.Cells[6].Value);
-
             
+
+            try
+            {
+                pbImage.Image = ByteArrayToImage((byte[])dgvcardate.CurrentRow.Cells[6].Value);
+
+            }
+            catch (InvalidCastException)
+            {
+                pbImage.Image = null;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
 
             //setMakerRadioButtonSet(maker) ;

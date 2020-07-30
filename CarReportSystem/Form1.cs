@@ -299,9 +299,93 @@ namespace CarReportSystem
             return byteData;
         }
 
+        private void btSearchExe_Click(object sender, EventArgs e)
+        {
+           
+        }
 
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (rbAND.Checked == true)
+            {
+                if (rbCarName.Checked == true && rbCarDate.Checked == true && rbCarMaker.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByDateMakerNameAND(this.infosys202029DataSet.CarReport, dtpSearchCardate.Value.ToString(),
+                        tbSearchCarMaker.Text, tbSearchCarName.Text);
+                }
+                else if (rbCarName.Checked == true && rbCarDate.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByDateNameAND(this.infosys202029DataSet.CarReport, dtpSearchCardate.Value.ToString(), tbSearchCarName.Text);
+                }
+                else if (rbCarName.Checked == true && rbCarMaker.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByMakerNameAND(this.infosys202029DataSet.CarReport, tbSearchCarName.Text, tbSearchCarMaker.Text);
+                }
+                else if (rbCarDate.Checked == true && rbCarMaker.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByDateMakerAND(this.infosys202029DataSet.CarReport, dtpSearchCardate.Value.ToString(), tbSearchCarMaker.Text);
+                }
+                else if (rbCarMaker.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByCarMaker(this.infosys202029DataSet.CarReport, tbSearchCarMaker.Text);
+                }
+                else if (rbCarDate.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByCarDate(this.infosys202029DataSet.CarReport, dtpSearchCardate.Value.ToString());
+                }
+                else if (rbCarName.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByCarNane(this.infosys202029DataSet.CarReport, tbSearchCarName.Text);
+                }
+            }
 
+            if (rbOR.Checked == true)
+            {
+                if (rbCarName.Checked == true && rbCarDate.Checked == true && rbCarMaker.Checked == true)
+                {
+                    this.carReportTableAdapter.FillBDateMakarNameOR(this.infosys202029DataSet.CarReport, dtpSearchCardate.Value.ToString(),
+                        tbSearchCarMaker.Text, tbSearchCarName.Text);
+                }
+                else if (rbCarName.Checked == true && rbCarDate.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByDateNameOR(this.infosys202029DataSet.CarReport, dtpSearchCardate.Value.ToString(), tbSearchCarName.Text);
+                }
+                else if (rbCarName.Checked == true && rbCarMaker.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByMakerNameOR(this.infosys202029DataSet.CarReport, tbSearchCarName.Text, tbSearchCarMaker.Text);
+                }
+                else if (rbCarDate.Checked == true && rbCarMaker.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByDateMakerOR(this.infosys202029DataSet.CarReport, dtpSearchCardate.Value.ToString(), tbSearchCarMaker.Text);
+                }
+                else if (rbCarMaker.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByCarMaker(this.infosys202029DataSet.CarReport, tbSearchCarMaker.Text);
+                }
+                else if (rbCarDate.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByCarDate(this.infosys202029DataSet.CarReport, dtpSearchCardate.Value.ToString());
+                }
+                else if (rbCarName.Checked == true)
+                {
+                    this.carReportTableAdapter.FillByCarNane(this.infosys202029DataSet.CarReport, tbSearchCarName.Text);
+                }
+            }
+            
+            
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.carReportTableAdapter.FillByCarMaker(this.infosys202029DataSet.CarReport, tbSearchCarMaker.Text);
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
